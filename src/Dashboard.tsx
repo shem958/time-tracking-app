@@ -1,54 +1,51 @@
-// Import React from the React library
+// dashboard.tsx
 import React from "react";
-// Import the ProfileCard component
 import ProfileCard from "./ProfileCard";
-// Import the ActivityCard component
 import ActivityCard from "./ActivityCard";
 
-// Create the Dashboard functional component
 const Dashboard: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-900 p-12 flex items-center justify-center">
-      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div className="min-h-screen bg-gray-900 p-8 flex justify-center">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="md:col-span-1">
           <ProfileCard name="Jeremy Robson" />
         </div>
-        <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <ActivityCard
             activity="Work"
             hours={32}
             lastWeekHours={36}
-            color="#FF8C66"
+            color="bg-orange-500"
           />
           <ActivityCard
             activity="Play"
             hours={10}
             lastWeekHours={8}
-            color="#56C2E6"
+            color="bg-teal-500"
           />
           <ActivityCard
             activity="Study"
             hours={4}
             lastWeekHours={7}
-            color="#FF5C7C"
+            color="bg-pink-500"
           />
           <ActivityCard
             activity="Exercise"
             hours={4}
             lastWeekHours={5}
-            color="#4BCF83"
+            color="bg-green-500"
           />
           <ActivityCard
             activity="Social"
             hours={5}
             lastWeekHours={10}
-            color="#7235D1"
+            color="bg-purple-500"
           />
           <ActivityCard
             activity="Self Care"
             hours={2}
             lastWeekHours={2}
-            color="#F1C65B"
+            color="bg-yellow-500"
           />
         </div>
       </div>

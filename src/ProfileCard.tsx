@@ -1,33 +1,23 @@
-//Import React from the React library
+// profilecard.tsx
 import React from "react";
-import imageJeremy from "./images/image-jeremy.png";
-
-// Define the interface for the props that will be passed to the ProfileCard Component
+import image from "./images/image-jeremy.png";
 interface ProfileCardProps {
   name: string;
 }
 
-// Create the ProfileCard functional component with props destructuring
 const ProfileCard: React.FC<ProfileCardProps> = ({ name }) => {
+  console.log(image);
   return (
-    //container div for the profile card with Tailwind CSS classes for styling
-    <div className="bg-indigo-500 text-white rounded-lg p-6">
-      <div className="flex flex-col items-center">
-        <img
-          src={imageJeremy}
-          alt={name}
-          className="w-16 h-16 rounded-full mb-4"
-        />
-        <h2 className="text-sm">Report for</h2>
-        <h1 className="text-2xl font-bold">{name}</h1>
-      </div>
-      <div className="mt-6 text-center space-y-2">
-        <p className="cursor-pointer">Daily</p>
-        <p className="cursor-pointer">Weekly</p>
-        <p className="cursor-pointer">Monthly</p>
+    <div className="bg-purple-600 rounded-lg p-8 text-white flex flex-col items-center">
+      <img src={image} alt={name} className="w-24 h-24 rounded-full mb-6" />
+      <h1 className="text-3xl font-bold">{name}</h1>
+      <p className="mt-6 text-lg">Report for</p>
+      <div className="mt-6 text-lg flex flex-col items-center">
+        <p className="cursor-pointer hover:underline">Daily</p>
+        <p className="cursor-pointer hover:underline mt-2">Weekly</p>
+        <p className="cursor-pointer hover:underline mt-2">Monthly</p>
       </div>
     </div>
   );
 };
-
 export default ProfileCard;
