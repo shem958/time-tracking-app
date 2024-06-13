@@ -1,12 +1,11 @@
-// profilecard.tsx
 import React from "react";
-import image from "./images/image-jeremy.png";
+
 interface ProfileCardProps {
   name: string;
 }
 
 const ProfileCard: React.FC<ProfileCardProps> = ({ name }) => {
-  console.log(image);
+  const image = "/images/image-jeremy.png";
   return (
     <div className="bg-purple-600 rounded-lg p-8 text-white flex flex-col items-center">
       <img src={image} alt={name} className="w-24 h-24 rounded-full mb-6" />
@@ -20,4 +19,5 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ name }) => {
     </div>
   );
 };
+
 export default ProfileCard;

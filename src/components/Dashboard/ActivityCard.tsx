@@ -1,11 +1,4 @@
 import React from "react";
-import exerciseIcon from "./images/exercise.svg";
-import playIcon from "./images/play.svg";
-import selfCareIcon from "./images/self-care.svg";
-import socialIcon from "./images/social.svg";
-import studyIcon from "./images/study.svg";
-import workIcon from "./images/work.svg";
-
 interface ActivityCardProps {
   activity: string;
   hours: number;
@@ -22,17 +15,17 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
   const getBackgroundIcon = () => {
     switch (activity) {
       case "Work":
-        return workIcon;
+        return "/images/work.svg";
       case "Play":
-        return playIcon;
+        return "/images/play.svg";
       case "Study":
-        return studyIcon;
+        return "/images/study.svg";
       case "Exercise":
-        return exerciseIcon;
+        return "/images/exercise.svg";
       case "Social":
-        return socialIcon;
+        return "/images/social.svg";
       case "Self Care":
-        return selfCareIcon;
+        return "/images/self-care.svg";
       default:
         return "";
     }

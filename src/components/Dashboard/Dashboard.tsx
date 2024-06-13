@@ -1,9 +1,10 @@
-// src/Dashboard.tsx
+// src/components/Dashboard/Dashboard.tsx
+
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import ProfileCard from "./ProfileCard";
+import ProfileCard from "../ProfileCard/ProfileCard";
 import ActivityCard from "./ActivityCard";
-import fetchActivityData, { Activity } from "./api";
+import fetchActivityData, { Activity } from "../../api";
 
 const Dashboard: React.FC = () => {
   const [timeFrame, setTimeFrame] = useState<"daily" | "weekly" | "monthly">(
@@ -37,19 +38,25 @@ const Dashboard: React.FC = () => {
       <div className="mb-8 flex space-x-4">
         <button
           onClick={() => handleTimeFrameChange("daily")}
-          className="text-white bg-blue-500 px-4 py-2 rounded"
+          className={`text-white px-4 py-2 rounded ${
+            timeFrame === "daily" ? "bg-blue-500" : "bg-gray-500"
+          }`}
         >
           Daily
         </button>
         <button
           onClick={() => handleTimeFrameChange("weekly")}
-          className="text-white bg-blue-500 px-4 py-2 rounded"
+          className={`text-white px-4 py-2 rounded ${
+            timeFrame === "weekly" ? "bg-blue-500" : "bg-gray-500"
+          }`}
         >
           Weekly
         </button>
         <button
           onClick={() => handleTimeFrameChange("monthly")}
-          className="text-white bg-blue-500 px-4 py-2 rounded"
+          className={`text-white px-4 py-2 rounded ${
+            timeFrame === "monthly" ? "bg-blue-500" : "bg-gray-500"
+          }`}
         >
           Monthly
         </button>
