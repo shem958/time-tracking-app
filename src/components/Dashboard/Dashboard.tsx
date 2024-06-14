@@ -1,61 +1,63 @@
-// src/components/Dashboard/Dashboard.tsx
-
-import React, { useState } from "react";
-import { useQuery } from "react-query";
+import React, { useState, useEffect } from "react";
 import ProfileCard from "../ProfileCard/ProfileCard";
 import ActivityCard from "./ActivityCard";
-import fetchActivityData, { Activity } from "../../api";
+import { Activity, TimeFrame } from "../../api";
 
-const Dashboard: React.FC = () => {
-  const [timeFrame, setTimeFrame] = useState<"daily" | "weekly" | "monthly">(
-    "weekly"
-  );
-  const { data, error, isLoading } = useQuery<Activity[], Error>(
-    "activityData",
-    fetchActivityData
-  );
+const Dashboard = ({
+  data,
+  error,
+  isLoading,
+}: {
+  data: Activity[];
+  error: Error | null;
+  isLoading: boolean;
+}) => {
+  const [timeFrame, setTimeFrame] = useState<TimeFrame>(TimeFrame.Weekly);
+  const [delayedData, setDelayedData] = useState<Activity[] | null>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDelayedData(data);
+    }, 10000); // 10 seconds delay
+
+    return () => clearTimeout(timer);
+  }, [data]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading ...</div>;
   }
 
   if (error) {
     return <div>Error: {error.message}</div>;
   }
 
-  if (!data) {
+  if (!data || data.length === 0) {
     return <div>No data available</div>;
   }
-
-  const handleTimeFrameChange = (
-    newTimeFrame: "daily" | "weekly" | "monthly"
-  ) => {
-    setTimeFrame(newTimeFrame);
-  };
 
   return (
     <div className="min-h-screen bg-gray-900 p-8 flex flex-col items-center">
       <div className="mb-8 flex space-x-4">
         <button
-          onClick={() => handleTimeFrameChange("daily")}
+          onClick={() => setTimeFrame(TimeFrame.Daily)}
           className={`text-white px-4 py-2 rounded ${
-            timeFrame === "daily" ? "bg-blue-500" : "bg-gray-500"
+            timeFrame === TimeFrame.Daily ? "bg-blue-500" : "bg-gray-500"
           }`}
         >
           Daily
         </button>
         <button
-          onClick={() => handleTimeFrameChange("weekly")}
+          onClick={() => setTimeFrame(TimeFrame.Weekly)}
           className={`text-white px-4 py-2 rounded ${
-            timeFrame === "weekly" ? "bg-blue-500" : "bg-gray-500"
+            timeFrame === TimeFrame.Weekly ? "bg-blue-500" : "bg-gray-500"
           }`}
         >
           Weekly
         </button>
         <button
-          onClick={() => handleTimeFrameChange("monthly")}
+          onClick={() => setTimeFrame(TimeFrame.Monthly)}
           className={`text-white px-4 py-2 rounded ${
-            timeFrame === "monthly" ? "bg-blue-500" : "bg-gray-500"
+            timeFrame === TimeFrame.Monthly ? "bg-blue-500" : "bg-gray-500"
           }`}
         >
           Monthly
@@ -66,22 +68,25 @@ const Dashboard: React.FC = () => {
           <ProfileCard name="Jeremy Robson" />
         </div>
         <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {data.map((activity) => (
-            <ActivityCard
-              key={activity.title}
-              activity={activity.title}
-              hours={activity.timeframes[timeFrame].current}
-              lastWeekHours={activity.timeframes[timeFrame].previous}
-              color={getColor(activity.title)}
-            />
-          ))}
+          {delayedData ? (
+            delayedData.map((activity) => (
+              <ActivityCard
+                key={activity.title}
+                activity={activity.title}
+                hours={activity.timeframes[timeFrame].current}
+                lastWeekHours={activity.timeframes[timeFrame].previous}
+                color={getColor(activity.title)}
+              />
+            ))
+          ) : (
+            <div>Loading data...</div>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-// Helper function to map activity titles to colors
 const getColor = (title: string) => {
   switch (title) {
     case "Work":

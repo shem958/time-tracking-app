@@ -1,4 +1,3 @@
-// src/api.ts
 import axios from "axios";
 
 // Define the structure of the activity data
@@ -17,3 +16,9 @@ const fetchActivityData = async (): Promise<Activity[]> => {
 };
 
 export default fetchActivityData;
+
+export enum TimeFrame {
+  Daily = 'daily',
+  Weekly = 'weekly',
+  Monthly = 'monthly',
+}
