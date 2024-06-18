@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProfileCard from "../ProfileCard/ProfileCard";
 import ActivityCard from "./ActivityCard";
 import { Activity, TimeFrame } from "../../api";
+import { PacmanLoader } from "react-spinners";
 
 const Dashboard = ({
   data,
@@ -79,7 +80,9 @@ const Dashboard = ({
               />
             ))
           ) : (
-            <div>Loading data...</div>
+            <div className="flex justify-center items-center w-full h-full">
+              <PacmanLoader color="#ffffff" size={50} />
+            </div>
           )}
         </div>
       </div>
